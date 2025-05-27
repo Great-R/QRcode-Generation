@@ -44,7 +44,7 @@ Which Artificial Intelligence tools used: ChatGPT
 
 The following animations showcase the application's key features, from standard QR code creation to the advanced customization and visualization options, fulfilling the project's demonstration requirement.
 
-![5月27日 (2)](gif/5月27日 (2).gif)
+<img src="gif/5月27日 (2).gif" alt="GIF_20250527170535967" style="zoom:50%;" />
 
 #### Demo 1: Basic QR Code Generation
 
