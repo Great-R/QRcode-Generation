@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags and title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Simple and Easy Online Tool</title>
+    <!-- External CSS resources -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Inline styles for navbar -->
+    <style>
+        .navbar {
+            background-image: url("{{ url_for('static', filename='header-bg.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .navbar .logo, .navbar .nav-links a {
+            color: white !important;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background animation elements -->
+    <div class="area">
+        <ul class="circles">
+            <li> </li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="logo">
+                <i class="fas fa-qrcode"></i>
+                QR Code Generator Group VI
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2>Generate Your QR Code</h2>
+                
+                <!-- Alert messages -->
+                <div class="alert alert-success" id="success-alert">QR code generated successfully!</div>
+                <div class="alert alert-error" id="error-alert"></div>
+                
+                <form id="qr-form">
+                    <!-- Content input field -->
+                    <div class="form-group">
+                        <label for="content">Enter Content</label>
+                        <textarea class="form-control" id="content" name="content" placeholder="Enter a URL, text, or other content..." required></textarea>
+                        <div class="char-counter"><span id="char-count">0</span> characters</div>
+                    </div>
+                    
+                    <!-- Error correction and version options -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ecl">Error Correction Level</label>
+                            <select class="form-control" id="ecl" name="ecl">
+                                <option value="L" selected>L - Low (7%)</option>
+                                <option value="M">M - Medium (15%)</option>
+                                <option value="Q">Q - High (25%)</option>
+                                <option value="H">H - Highest (30%)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="version">Version</label>
+                            <select class="form-control" id="version" name="version">
+                                <option value="0" selected>Auto</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom appearance options -->
+                    <details class="customization-details">
+                        <summary class="customization-summary">Custom Appearance Options (Click to expand)</summary>
+                        <div class="customization-panel">
+                            <!-- Color selection -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="foreground_color">Foreground Color</label>
+                                    <input type="color" class="form-control" id="foreground_color" name="foreground_color" value="#000000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="background_color">Background Color</label>
+                                    <input type="color" class="form-control" id="background_color" name="background_color" value="#FFFFFF">
+                                </div>
+                            </div>
+                            
+                            <!-- Module shape selection -->
+                            <div class="form-group">
+                                <label for="module_shape">Module Shape</label>
+                                <select class="form-control" id="module_shape" name="module_shape">
+                                    <option value="square" selected>Square</option>
+                                    <option value="circle">Circle</option>
+                                    <option value="diamond">Diamond</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Size and border settings -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="unit_size">Module Size (1-10)</label>
+                                    <input type="range" class="form-control" id="unit_size" name="unit_size" min="1" max="10" value="3">
+                                    <div class="char-counter"><span id="unit-size-value">3</span> px</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="margin">Margin (0-10)</label>
+                                    <input type="range" class="form-control" id="margin" name="margin" min="0" max="10" value="4">
+                                    <div class="char-counter"><span id="margin-value">4</span> units</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="border_size">Border Width (0-10)</label>
+                                    <input type="range" class="form-control" id="border_size" name="border_size" min="0" max="10" value="4">
+                                    <div class="char-counter"><span id="border-size-value">4</span> px</div>
+                                </div>
+                                
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="frame" name="frame" checked>
+                                        Show Border
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Filter options -->
+                            <div class="form-group">
+                                <label for="filter_name">Image Filter</label>
+                                <select class="form-control" id="filter_name" name="filter_name">
+                                    <option value="none" selected>None</option>
+                                    <option value="edge_enhance">Edge Enhance</option>
+                                    <option value="smooth">Smooth</option>
+                                </select>
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <!-- QR code size slider -->
+                    <div class="form-group">
+                        <label for="size">QR Code Size</label>
+                        <input type="range" class="form-control" id="size" name="size" min="100" max="250" value="250">
+                        <div class="char-counter"><span id="size-value">250</span> px</div>
+                    </div>
+                    
+                    <!-- Generate button -->
+                    <button type="submit" class="btn btn-block" id="generate-btn">
+                        <i class="fas fa-qrcode"></i> Generate QR Code
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Preview Section -->
+            <div class="preview-section">
+                <h2 class="preview-title">QRcode</h2>
+                <div class="qr-preview">
+                    <div class="qr-image-container" id="qr-container">
+                        <div class="spinner" id="loading-spinner"></div>
+                        <img src="" alt="QR Code Preview" class="qr-image" id="qr-image" style="display: none;">
+                    </div>
+                    
+                    <!-- Action buttons -->
+                    <div class="qr-actions">
+                        <a href="#" class="btn" id="download-btn" style="display: none;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <button class="btn btn-secondary" id="share-btn" style="display: none;">
+                            <i class="fas fa-share-alt"></i> Share
+                        </button>
+                    </div>
+                     <div class="form-group checkbox-group" style="margin-top: 10px;">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="show-steps" name="show-steps">
+                            Show QR Code Creation Steps
+                        </label>
+                    </div>
+                </div>
+                <!-- Warning messages -->
+                <div class="qr-warning">
+                    <p>⚠️ QR Code Generation Warning</p>
+                    <p><span class="warning-number">1.</span> Please ensure that the input content is legal and does not contain sensitive or personal information.</p>
+                    <p><span class="warning-number">2.</span> The generated QR code can be scanned by anyone with access to it. Keep it secure and avoid public exposure.</p>
+                    <p><span class="warning-number">3.</span> If the QR code includes a URL, verify that the source is safe to prevent phishing or malicious attacks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GIF loading modal -->
+    <div id="gif-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Generating QR Code...</h2>
+            <div class="gif-container" style="text-align: center;">
+                <img src="{{ url_for('static', filename='Images/generatingCode.GIF') }}" alt="Loading GIF" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+
+    <!-- QR code creation steps modal -->
+    <div id="steps-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>QR Code Creation Process</h2>
+            <div class="steps-container">
+                <div class="steps-navigation">
+                    <button id="prev-step" class="nav-btn">&lt; Previous</button>
+                    <span id="step-indicator">Step 1/5</span>
+                    <button id="next-step" class="nav-btn">Next &gt;</button>
+                </div>
+                <div class="step-content">
+                    <div class="step-image-container">
+                        <img src="" alt="QR Code Step" id="step-image">
+                    </div>
+                    <div class="step-description" id="step-description">
+                        <!-- Step description will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 QR Code Generator | Group 6</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
