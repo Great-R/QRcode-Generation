@@ -284,7 +284,7 @@ The implementation ensures robust error handling:
 
 **Objective**: This section demonstrates the intermediate steps in generating a QR code, using a consistent test string to prove the functionality of each core component of our algorithm.
 
-<img src="gif\GIF_20250525210946444.GIF" alt="GIF_20250525210946444" style="zoom: 20%;" />
+<img src="gif\GIF_20250525210946444.GIF" alt="GIF_20250525210946444" style="zoom: 5%;" />
 
 ------
 
