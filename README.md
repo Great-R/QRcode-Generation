@@ -1,12 +1,8 @@
 
-
+# 这是python编程的课程作业，做一个QRcode的生成器。
+# This is a course assignment for python programming. Make a QRcode generator.
 # Advanced Python QR Code Generator
 
-Module Code: CS2PPNU
-Assignment report Title: QR Code Generator
-Student Number (e.g., 25098635): 31808120, 31808669, 31808980, 31808442, 31808741
-Actual hrs spent for the assignment: 60hrs
-Which Artificial Intelligence tools used: ChatGPT
 
 ------
 
